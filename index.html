@@ -2,10 +2,405 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Iván DevOps</title>
+  <title>Iván DevOps 🚀</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #020810;
+      --bg-mid: #040f1e;
+      --accent-cyan: #00e5ff;
+      --accent-orange: #ff6b35;
+      --accent-green: #00ffa3;
+      --text-main: #e8f4fd;
+      --text-dim: rgba(232, 244, 253, 0.5);
+      --card-bg: rgba(0, 229, 255, 0.04);
+      --card-border: rgba(0, 229, 255, 0.12);
+      --mono: 'Space Mono', monospace;
+      --display: 'Syne', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: var(--display);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: gridDrift 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes gridDrift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(48px, 48px); }
+    }
+
+    /* Radial glow behind card */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(ellipse, rgba(0,229,255,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Floating particles */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      opacity: 0;
+      animation: float var(--dur) var(--delay) ease-in infinite;
+    }
+
+    @keyframes float {
+      0%   { opacity: 0; transform: translateY(100vh) scale(0); }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.3; }
+      100% { opacity: 0; transform: translateY(-20vh) scale(1.5); }
+    }
+
+    /* Main card */
+    .card {
+      position: relative;
+      z-index: 10;
+      width: min(520px, 92vw);
+      padding: 48px 44px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 4px;
+      backdrop-filter: blur(24px);
+      animation: cardIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(32px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Top bar decoration */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    }
+
+    /* Corner accent */
+    .card::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; right: -1px;
+      width: 40px; height: 40px;
+      border-right: 2px solid var(--accent-orange);
+      border-bottom: 2px solid var(--accent-orange);
+    }
+
+    /* Terminal label */
+    .terminal-label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent-cyan);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: cardIn 0.8s 0.1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    .terminal-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 14px;
+      animation: cardIn 0.8s 0.15s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    h1 .rocket {
+      display: inline-block;
+      animation: rocketPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes rocketPulse {
+      0%,100% { transform: translateY(0) rotate(-45deg); }
+      50%      { transform: translateY(-6px) rotate(-45deg); }
+    }
+
+    .subtitle {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+      letter-spacing: 0.02em;
+      animation: cardIn 0.8s 0.2s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--card-border), transparent);
+      margin-bottom: 28px;
+      animation: cardIn 0.8s 0.25s both;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border: 1px solid rgba(0,255,163,0.3);
+      border-radius: 2px;
+      background: rgba(0,255,163,0.07);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      letter-spacing: 0.1em;
+      margin-bottom: 28px;
+      animation: cardIn 0.8s 0.3s both;
+    }
+
+    /* Deploy button */
+    .deploy-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: transparent;
+      border: 1px solid var(--accent-orange);
+      border-radius: 2px;
+      color: var(--accent-orange);
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      animation: cardIn 0.8s 0.35s both;
+    }
+
+    .deploy-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--accent-orange);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+
+    .deploy-btn:hover::before { transform: scaleX(1); }
+    .deploy-btn:hover { color: #020810; box-shadow: 0 0 24px rgba(255,107,53,0.35); }
+    .deploy-btn:active { transform: scale(0.98); }
+
+    .deploy-btn .arrow {
+      transition: transform 0.2s;
+    }
+    .deploy-btn:hover .arrow { transform: translateX(4px); }
+
+    /* Status terminal */
+    .status-block {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 2px;
+      padding: 14px 16px;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      animation: cardIn 0.8s 0.4s both;
+    }
+
+    .status-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      transition: color 0.3s;
+    }
+
+    .status-line.active { color: var(--accent-cyan); }
+    .status-line.success { color: var(--accent-green); }
+
+    .status-prompt {
+      color: var(--accent-cyan);
+      user-select: none;
+    }
+
+    #statusText {
+      transition: all 0.3s;
+    }
+
+    .spinner {
+      display: none;
+      width: 10px; height: 10px;
+      border: 1.5px solid transparent;
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    .spinner.active { display: inline-block; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Footer */
+    .footer {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--text-dim);
+      animation: cardIn 0.8s 0.45s both;
+    }
+  </style>
 </head>
 <body>
-  <h1>🚀 Deploy automático con S3 + CloudFront</h1>
-  <p>CI/CD funcionando 🔥</p>
+
+  <div class="particles" id="particles"></div>
+
+  <div class="card">
+    <div class="terminal-label">sistema activo · aws region us-east-1</div>
+
+    <h1><span class="rocket">🚀</span> Iván DevOps</h1>
+    <p class="subtitle">$ aws s3 sync ./dist s3://ivan-prod --delete</p>
+
+    <div class="divider"></div>
+
+    <div class="badge">
+      ✦ AWS Cloud Practitioner &nbsp;·&nbsp; certificado
+    </div>
+
+    <button class="deploy-btn" onclick="deploy()">
+      <span>▶</span>
+      <span>Simular Deploy</span>
+      <span class="arrow">→</span>
+    </button>
+
+    <div class="status-block">
+      <div class="status-line" id="statusLine">
+        <span class="status-prompt">$</span>
+        <div class="spinner" id="spinner"></div>
+        <span id="statusText">Esperando acción...</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <span>S3 + CloudFront · CI/CD Pipeline</span>
+      <span id="clock">--:--:--</span>
+    </div>
+  </div>
+
+  <script>
+    // Particles
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 28; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${Math.random() * 100}%;
+        --dur: ${6 + Math.random() * 10}s;
+        --delay: ${Math.random() * 8}s;
+        width: ${1 + Math.random() * 3}px;
+        height: ${1 + Math.random() * 3}px;
+        opacity: ${0.2 + Math.random() * 0.5};
+      `;
+      container.appendChild(p);
+    }
+
+    // Clock
+    function tick() {
+      const now = new Date();
+      document.getElementById('clock').textContent =
+        now.toLocaleTimeString('es-AR', { hour12: false });
+    }
+    tick(); setInterval(tick, 1000);
+
+    // Deploy sim
+    function deploy() {
+      const line    = document.getElementById('statusLine');
+      const spinner = document.getElementById('spinner');
+      const text    = document.getElementById('statusText');
+      const btn     = document.querySelector('.deploy-btn');
+
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'not-allowed';
+
+      line.className = 'status-line active';
+      spinner.classList.add('active');
+      text.textContent = 'Subiendo artefactos a S3...';
+
+      const steps = [
+        [700,  'Invalidando caché de CloudFront...'],
+        [1500, 'Verificando distribución CDN...'],
+        [2400, '✅ Deploy exitoso · 0 errores'],
+      ];
+
+      steps.forEach(([delay, msg]) => {
+        setTimeout(() => {
+          if (msg.startsWith('✅')) {
+            spinner.classList.remove('active');
+            line.className = 'status-line success';
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.style.cursor = 'pointer';
+          }
+          text.textContent = msg;
+        }, delay);
+      });
+    }
+  </script>
 </body>
 </html>
